@@ -27,5 +27,5 @@ In order to extract the data with Python I use:
 ## Load
 - Export datafrem from Python into CSVs
 - Load data into a mySQL table
-- I used Apache NiFi to automate runing python script and loading into database
+- I used Apache NiFi to automate running python script and loading into database once a day
 
