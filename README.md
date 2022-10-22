@@ -1,6 +1,6 @@
 # ETL Project - PlayStation Store
 
-I extract all Playstation Store products from the UK's [PlayStation Store](https://store.playstation.com/en-gb/pages/latest) and store in a relational database. This data includes:
+With a daily CRON job, I extract all Playstation Store products from the UK's [PlayStation Store](https://store.playstation.com/en-gb/pages/latest) and load into a relational database, cleaning the data during the process. This data includes:
 - Product name
 - Platform (PS4 or PS5)
 - Product type
