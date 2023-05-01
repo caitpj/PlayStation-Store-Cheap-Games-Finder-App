@@ -5,7 +5,7 @@
 import requests
 import json
 import pandas as pd
-from bs4 import BeautifulSoup
+import bs4
 import os
 import numpy as np
 
@@ -31,7 +31,7 @@ request_urls = ['https://store.playstation.com/en-gb/pages/deals',
 for request_url in request_urls:
     response = requests.get(request_url)
     html_text = response.text
-    soup = BeautifulSoup(html_text, 'lxml')
+    soup = bs4.BeautifulSoup(html_text, 'lxml')
     sales = soup.find_all('li', class_ = 'psw-l-w-1/2@mobile-s psw-l-w-1/2@mobile-l psw-l-w-1/3@tablet-s psw-l-w-1/3@tablet-l psw-l-w-1/4@laptop psw-l-w-1/4@desktop psw-l-w-1/4@max')
     sale_ids = []
 
@@ -75,7 +75,7 @@ for sale_id in sale_ids:
         df = df.explode('platforms')
 
 # turn datetime to date
-        df['date'] = df['date'].dt.date
+        df['date'] = pd.to_datetime(df['date']).dt.date
 
 # create csv
         if os.path.exists('Output/first_PSSEO_'+ sale_id + '_' + str(pd.to_datetime('today', utc=True)).split(' ')[0] + '.csv'):
