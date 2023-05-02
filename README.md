@@ -1,31 +1,31 @@
-# ETL Project - PlayStation Store
+# PlayStation Store Cheap Games Finder App
 
-With a daily CRON job, I extract all Playstation Store products from the UK's [PlayStation Store](https://store.playstation.com/en-gb/pages/latest) and load into a relational database, cleaning the data during the process. This data includes:
-- Product name
-- Platform (PS4 or PS5)
-- Product type
-- Sale name
-- Original price (gbp)
-- Discounted price (gbp)
-- Product rank in sale
-- Date seen on store
+## Overview
 
-## Extract
+script extracts game data from PlayStation store, loads into a database, and presents a Streamlit app of a list of games at cheapests price recorded in the database. This helps buyers figure out if the games are a good deal or not.
 
-In order to extract the data with Python I use: 
-- BeautifulSoup to extract key information for API URLs
-- Make a API calls to the correct product collections
-- There is a limit of 1,000 products per API call, so I create logic to fetch remaining products i.e. product 1,001+ of collection
-- Data extracted in JSON format
+## ET_script.py
 
-## Transform
+This file extracts data from the PlayStation Store. It uses BeautifulSoup package to extract key information for API URLs. Then makes API calls to the correct product collections. There is a limit of 1,000 products per API call, so there is logic to fetch remaining products i.e. product 1,001+ of collection. Data extracted in JSON format. It then does some simple transformations to clean the data and saves into the 'Output' folder as csv files.
 
-- Transform desired data from JSON into a structured Pandas dataframe
-- Few extra tweaks with Pandas, such as including date, and exploding platform list
-- Created a view in mySQL using SQL for further transfomations e.g. changing prices from strings to numbers
+## L_script.py
 
-## Load
-- Export datafrem from Python into CSVs
-- Load data into a mySQL table
-- I used Apache NiFi to automate running python script and loading into database once a day
+This file loads the data from the csv files in the 'Output' folder into localhost MySQL database. Once loaded into the database it moves the csv files into a folder called 'Output_loaded', this is so I don't lose any data if the database fails.
+
+## clean_playstation_data.sql
+
+This file creates a view that does further transformations of the data in MySQL database. Mostly cleaning the data, for example, trimming the start and end quotes from each field.
+
+## cheap_today.sql
+
+This file creates another view, that presents today's cheap PlayStation games. This is the view that will be presented in the Streamlit app.
+
+## streamlit_app.py
+
+Simple file that creates a Streamlit app, which presents the data in cheap_today.sql.
+
+## Further Improvements
+
+Orchestrate ET_script.py and L_script.py to run after eachother every day. 
+
 
