@@ -4,6 +4,8 @@
 
 script extracts game data from PlayStation store, loads into a database, and presents a Streamlit app of a list of games at cheapests price recorded in the database. This helps buyers figure out if the games are a good deal or not.
 
+<img width="1440" alt="App Screenshot" src="https://user-images.githubusercontent.com/97813242/235610959-553f7ee9-e6a5-4ce2-bd43-f9deaf1aa304.png">
+
 ## ET_script.py
 
 This file extracts data from the PlayStation Store. It uses BeautifulSoup package to extract key information for API URLs. Then makes API calls to the correct product collections. There is a limit of 1,000 products per API call, so there is logic to fetch remaining products i.e. product 1,001+ of collection. Data extracted in JSON format. It then does some simple transformations to clean the data and saves into the 'Output' folder as csv files.
